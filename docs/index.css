@@ -7,13 +7,17 @@ body {
     padding: 0;
     margin: 0;
     color: #666;
+    font-size: 16px;
 }
 
 .content{
     width: 210mm;
+    height: 297mm;
+    overflow: hidden;
     margin: 1em auto;
     background-color: white;
     box-shadow: 0 0 12px 12px #999;
+    font-size: 3em;
 }
 
 @media only screen and (max-width:210mm){
@@ -37,9 +41,16 @@ body {
 table{
     width: 100%;
     border-collapse: collapse;
-    font-size: 3.9em;
 }
 
+div.eq {
+    height: 45%;
+    /* overflow: hidden; */
+}
+
+div.eq:first-child {
+    margin-bottom: 10%;
+}
 
 table, td {
     /* border: 1px solid black; */
@@ -52,3 +63,42 @@ td{
     color: #666;
 }
 
+.sol .part {
+    overflow: hidden;
+    padding:0;
+    margin:0;
+    display: flex;
+    line-height: 33%;
+    font-size: 2em;
+    text-align: center;
+}
+
+.part:nth-child(2n + 1) {
+    border-top: 3px dashed #999;
+    border-bottom: 3px dashed #999;
+}
+
+.part-0 > div {
+    transform:translateY(-100%);
+}
+
+.part-1 {
+    transform:rotate(180deg)
+}
+
+.part-2 > div {
+    transform:translateY(100%);
+}
+
+.sol {
+    margin: 1em 0;
+}
+
+.sol .fas {
+    /* display: inline; */
+    line-height: inherit;
+}
+
+.sol .part > div{
+    flex-grow: 1;
+}

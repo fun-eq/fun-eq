@@ -16,60 +16,69 @@ document.addEventListener('DOMContentLoaded', () => {
         , 'wine-bottle'
     ])
 
-    const tbody = document.getElementById('tbody') as HTMLElement
+    const content = document.getElementById('content') as HTMLElement
 
-    function randLower(size: number, min = 1, max = 5) {
-        const mat: number[][] = math.randomInt([size, size], min, max) as number[][]
-        for (let i = 0; i < size - 1; i++) {
-            for (let j = i + 1; j < size; j++) {
-                mat[i][j] = 0
-            }
-        }
-        return mat
-    }
+    const template = [
+        [1, 1, 1],
+        [0, 1, 1],
+        [0, 0, 1],
+    ]
 
-    function randUpper(size: number, min = 1, max = 5) {
-        const mat: number[][] = math.randomInt([size, size], min, max) as number[][]
-        for (let i = 1; i < size; i++) {
-            for (let j = 0; j < i; j++) {
-                mat[i][j] = 0
-            }
-        }
-        return mat
-    }
-
-    function randomEqSet(size: number) {
-        const prices = math.randomInt([1, size], 20)
-        const lower = randLower(3)
-        const upper = randUpper(3)
-        const eq = math.multiply(lower, upper)
-        console.log(lower)
-        console.log(upper)
-        console.log(eq)
+    function eq(template: number[][]) {
+        const n = template.length
+        const rnd = math.randomInt([n, n], 1, 4)
+        const sol = math.randomInt([n], 1, 10)
+        const ls = math.dotMultiply(rnd, template) as number[][]
+        const rs = math.multiply(ls, sol) as any as (number | string)[]
+        ls.push(Array(n).fill(1))
+        rs.push('?')
+        return { ls, rs, sol }
     }
 
 
-    function drawProblem(equations: number[][], prices: number[]) {
-        function td(v: number, i: number) {
-            return <td>{i > 0 && v > 0 ? '+' : ''}</td> + <td>
-                {Array(v).fill(<i class={`fas fa-${icons[i]}`}></i>)}
-            </td>
+
+    function eqHtml() {
+        const { ls, rs, sol } = eq(template)
+        const n = ls[0].length
+
+        function icon(i: number) {
+            return <i class={`fas fa-${icons[i]}`}></i>
         }
 
-        function tr(eq: number[], val: number | string) {
+        function row(ls: number[], rs: number | string) {
             return <tr>
-                {eq.map((v, i) => td(v, i))}
+                {
+                    ls.map((v, i) =>
+                        <td>{Array(v).fill(icon(i))}</td>
+                        + <td>{v > 0 && i < n - 1 ? '+' : ''}</td>
+                    )
+                }
                 <td>=</td>
-                <td>{val}</td>
+                <td>{rs}</td>
             </tr>
+
         }
 
-        const total = math.multiply(equations, prices)
-        const table = <table>{tr([1, 2, 3], 5)}</table>
-
-        tbody.innerHTML = table
+        return <div class='eq'>
+            <table>{ls.map((r, i) => row(r, rs[i]))}</table>
+            <div class='sol'>
+                {
+                    Array(3).fill(1).map((v, i) =>
+                        <div class={`part part-${i}`}>
+                            {
+                                sol.map((v, j) =>
+                                    <div>{icon(j)}</div>
+                                    + <div> = </div>
+                                    + <div>{v}</div>
+                                )
+                            }
+                        </div>
+                    )
+                }
+            </div>
+        </div>
     }
 
-    randomEqSet(3)
-    drawProblem([[1, 2], [2, 1]], [1, 3])
+
+    content.innerHTML = eqHtml() + eqHtml()
 })
