@@ -15,7 +15,7 @@ body {
     margin: 1em auto;
     background-color: white;
     box-shadow: 0 0 12px 12px #999;
-    font-size: 2em;
+    font-size: 2.5em;
 }
 
 @media only screen and (max-width:210mm){
@@ -51,7 +51,7 @@ table, td {
 
 td{
     text-align: center;
-    padding: .3em;
+    padding: 1em 0;
     color: #666;
 }
 
