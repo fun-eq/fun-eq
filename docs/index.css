@@ -51,7 +51,7 @@ table, td {
 
 td{
     text-align: center;
-    padding: 1em 0;
+    padding: 1em .1em;
     color: #666;
 }
 
