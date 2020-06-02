@@ -26,8 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function eq(template: number[][]) {
         const n = template.length
-        const rnd = math.randomInt([n, n], 1, 5)
-        const sol = math.randomInt([n], 1, 10)
+        const rnd = math.randomInt([n, n], 1, 6)
+        const sol = math.randomInt([n], 1, 8)
         const ls = math.dotMultiply(rnd, template) as number[][]
         const rs = math.multiply(ls, sol) as any as (number | string)[]
         ls.push(Array(n).fill(1))
